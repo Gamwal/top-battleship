@@ -20,6 +20,10 @@ test("Check if ship has been hit", () => {
   expect(ship.numberOfHits).toBe(2);
 });
 
+test("Check if ship has been sunk", () => {
+  expect(ship.isSunk).toBe(false);
+});
+
 test("Check if ship can been hit after full damage", () => {
   ship.hit();
   ship.hit();
@@ -28,4 +32,8 @@ test("Check if ship can been hit after full damage", () => {
   ship.hit();
   ship.hit();
   expect(ship.numberOfHits).toBe(5);
+});
+
+test("Check if ship has been sunk", () => {
+  expect(ship.isSunk).toBe(true);
 });
