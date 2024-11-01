@@ -23,10 +23,6 @@ class Ship {
 
   hit() {
     if (!this.#isSunk) this.#numberOfHits++;
-    this.sink();
-  }
-
-  sink() {
     if (this.#numberOfHits === this.#length) this.#isSunk = true;
   }
 }
