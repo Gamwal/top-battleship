@@ -33,8 +33,8 @@ class Gameboard {
     return false;
   }
 
-  #checkPositions(start, length, orientation) {
-    const [row, col] = start;
+  #checkPositions(startCoordinates, length, orientation) {
+    const [row, col] = startCoordinates;
 
     for (let i = 0; i < length; i++) {
       if (orientation === 0) {
@@ -49,6 +49,30 @@ class Gameboard {
       }
     }
     return true;
+  }
+
+  receiveAttack(coordinates) {
+    const [row, col] = coordinates;
+    let shipNo = this.#grid[row][col];
+
+    if (shipNo !== null && shipNo !== "h" && shipNo !== "H") {
+      if (shipNo >= 0 && shipNo < this.#ships.length) {
+        const ship = this.#ships[shipNo];
+        if (ship && ship.isSunk === false) {
+          ship.hit();
+          this.#grid[row][col] = "H";
+        }
+      }
+    } else if (shipNo === null) {
+      this.#grid[row][col] = "h";
+    }
+  }
+
+  allShipsSunk() {
+    for (let ship of this.#ships) {
+      if (ship.isSunk === true) return true;
+    }
+    return false;
   }
 
   get grid() {
