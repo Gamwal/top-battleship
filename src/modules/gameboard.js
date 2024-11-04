@@ -28,15 +28,24 @@ class Gameboard {
           this.#grid[start[0] + i][start[1]] = this.#ships.length - 1;
         }
       }
+      return true;
     }
+    return false;
   }
 
   #checkPositions(start, length, orientation) {
+    const [row, col] = start;
+
     for (let i = 0; i < length; i++) {
       if (orientation === 0) {
-        if (this.#grid[start[0]][start[1] + i]) return false;
+        if (
+          col + i >= this.#grid[0].length ||
+          this.#grid[row][col + i] !== null
+        )
+          return false;
       } else if (orientation === 1) {
-        if (this.#grid[start[0] + i][start[1]]) return false;
+        if (row + i >= this.#grid.length || this.#grid[row + i][col] !== null)
+          return false;
       }
     }
     return true;
