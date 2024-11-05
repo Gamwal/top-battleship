@@ -69,10 +69,7 @@ class Gameboard {
   }
 
   allShipsSunk() {
-    for (let ship of this.#ships) {
-      if (ship.isSunk === true) return true;
-    }
-    return false;
+    return this.#ships.every((ship) => ship.isSunk === true);
   }
 
   get grid() {

@@ -1,8 +1,9 @@
-function createGrid(grid) {
+function createGrid(grid, gridID) {
   const nRows = grid.length;
   const nCols = grid[0].length;
   const gridContainer = document.createElement("div");
-  gridContainer.id = "grid-container";
+  gridContainer.id = gridID;
+  gridContainer.classList.add("grid-container");
 
   for (let i = 0; i < nRows; i++) {
     const rowDiv = document.createElement("div");
@@ -12,12 +13,8 @@ function createGrid(grid) {
       const cell = document.createElement("div");
 
       cell.textContent = grid[i][j];
-      cell.id = `cell_${i}_${j}`;
+      cell.id = `cell_${gridID}_${i}_${j}`;
       cell.classList.add("cell");
-
-      cell.addEventListener("click", (event) => {
-        console.log(event);
-      });
 
       rowDiv.appendChild(cell);
     }
@@ -41,8 +38,8 @@ function randomizeOrientation() {
   return Math.round(Math.random());
 }
 
-function addShipstoGameboard(gameboard) {
-  while (gameboard.ships.length < 10) {
+function addShipstoGameboard(gameboard, nShips = 10) {
+  while (gameboard.ships.length < nShips) {
     const start = coordinateGenerator();
     const length = shipLengthGenerator();
     const orientation = randomizeOrientation();
@@ -51,4 +48,9 @@ function addShipstoGameboard(gameboard) {
   }
 }
 
-module.exports = { createGrid, addShipstoGameboard };
+function handleClick(event) {
+  event.target.classList.add("clicked-cell");
+  event.target.removeEventListener("click", handleClick);
+}
+
+module.exports = { createGrid, addShipstoGameboard, handleClick };
