@@ -78,6 +78,10 @@ class Gameboard {
   get grid() {
     return this.#grid;
   }
+
+  get ships() {
+    return this.#ships;
+  }
 }
 
 module.exports = { Gameboard };
